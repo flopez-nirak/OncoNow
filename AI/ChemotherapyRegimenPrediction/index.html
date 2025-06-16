@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predicción de Esquema Oncológico</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #f5f8fa;
+    }
+    .card {
+      border-radius: 1rem;
+    }
+    .icon {
+      width: 1.5rem;
+    }
+    .form-section {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-center mb-4 text-primary"><i class="fas fa-dna me-2"></i>Predicción de Esquema de Quimioterapia</h2>
+
+    <div class="form-section">
+      <form>
+        <div class="mb-3">
+          <label class="form-label"><i class="fas fa-notes-medical me-2 text-secondary"></i>Diagnóstico</label>
+          <input type="text" class="form-control" placeholder="Ej: Cáncer de mama" required>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label"><i class="fas fa-user-clock me-2 text-secondary"></i>Edad</label>
+            <input type="number" class="form-control" min="0" required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label"><i class="fas fa-venus-mars me-2 text-secondary"></i>Sexo</label>
+            <select class="form-select" required>
+              <option value="">Seleccione...</option>
+              <option>M</option>
+              <option>F</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label"><i class="fas fa-weight me-2 text-secondary"></i>IMC</label>
+            <input type="number" step="0.1" class="form-control" placeholder="Ej: 27.5" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><i class="fas fa-vials me-2 text-secondary"></i>Estadificación TNM</label>
+          <input type="text" class="form-control" placeholder="Ej: T1N0M0" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><i class="fas fa-heartbeat me-2 text-secondary"></i>Estado funcional ECOG</label>
+          <select class="form-select" required>
+            <option value="">Seleccione...</option>
+            <option value="0">0 - Asintomático</option>
+            <option value="1">1 - Síntomas leves</option>
+            <option value="2">2 - Requiere algo de asistencia</option>
+            <option value="3">3 - Mayor dependencia</option>
+            <option value="4">4 - Incapacitado</option>
+            <option value="5">5 - Fallecido</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><i class="fas fa-vial me-2 text-secondary"></i>Biomarcadores</label>
+          <input type="text" class="form-control" placeholder="Ej: p53+, HER2–, KRAS+" required>
+        </div>
+
+<!--         <div class="text-center">
+          <button type="submit" class="btn btn-primary px-5">
+            <i class="fas fa-microscope me-2"></i>Predecir Esquema
+          </button>
+        </div> -->
+<!-- Botones: Simular + Predecir -->
+<div class="text-center d-flex justify-content-center gap-3 mt-3">
+    <button type="button" class="btn btn-secondary" onclick="simularPaciente()">
+      🎲 Simular Paciente
+    </button>
+    <button type="button" class="btn btn-primary" onclick="predecirEsquema()">
+      <i class="fas fa-microscope me-2"></i>Predecir Esquema
+    </button>
+  </div>
+
+      </form>
+    </div>
+  </div>
+ 
+  <!-- Resultado y script de simulación -->
+<div class="alert alert-success mt-4 d-none" id="resultadoBox">
+    <strong>Esquema recomendado:</strong> <span id="resultadoEsquema"></span>
+  </div>
+  
+  <script>
+    function simularPaciente() {
+      const diagnosticos = ["Cáncer de mama", "Cáncer colorrectal", "Linfoma no Hodgkin", "Cáncer gástrico"];
+      const sexos = ["M", "F"];
+      const tnms = ["T1N0M0", "T2N1M0", "T3N2M1", "T4N3M0"];
+      const biomarcadoresEj = ["p53+, HER2–", "KRAS+, BRAF–", "EGFR+, ALK–", "HER2+, p53–"];
+  
+      const random = arr => arr[Math.floor(Math.random() * arr.length)];
+  
+      document.querySelector('input[placeholder*="Cáncer"]').value = random(diagnosticos);
+      document.querySelector('input[type="number"]').value = Math.floor(Math.random() * 50) + 30;
+      document.querySelector('select').value = random(sexos);
+      document.querySelectorAll('input[type="number"]')[1].value = (20 + Math.random() * 10).toFixed(1);
+      document.querySelector('input[placeholder^="Ej: T"]').value = random(tnms);
+      document.querySelectorAll('select')[1].value = Math.floor(Math.random() * 4);
+      document.querySelector('input[placeholder^="Ej: p53"]').value = random(biomarcadoresEj);
+    }
+  </script>
+  
+
+
+</body>
+</html>
 
